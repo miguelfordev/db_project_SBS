@@ -149,10 +149,11 @@ public class Operacoes {
     public static void alterarDados(Scanner scanner, int idCliente) {
         
     	try (Connection conn = Conexao.conectar()) {
-            System.out.print("Novo nome: ");
+            System.out.println("Novo nome: ");
             String novoNome = scanner.nextLine();
+            
 
-            System.out.print("Novo CPF (somente números): ");
+            System.out.println("Novo CPF (somente números): ");
             String novoCpf = scanner.nextLine();
 
             String sqlCheck = "SELECT 1 FROM Cliente WHERE cpf = ? AND id_cliente <> ?";

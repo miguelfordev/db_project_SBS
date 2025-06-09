@@ -1,4 +1,5 @@
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import conta.CriarConta;
@@ -17,25 +18,33 @@ public class Main {
             System.out.println("3 - Consultar Clientes e Contas");
             System.out.println("4 - Sair");
             System.out.print("Escolha uma opção: ");
-            int opcao = scanner.nextInt();
-            scanner.nextLine();
 
-            switch (opcao) {
-                case 1:
-                    CriarConta.executar(scanner);
-                    break;
-                case 2:
-                    Login.executar(scanner);
-                    break;
-                case 3:
-                	Operacoes.consultarClientesEContas();
-                	break;
-                case 4:
-                    executando = false;
-                    System.out.println("Encerrando o sistema...");
-                    break;
-                default:
-                    System.out.println("Opção inválida.");
+            try {
+                int opcao = scanner.nextInt();
+                scanner.nextLine(); 
+
+                switch (opcao) {
+                    case 1:
+                        CriarConta.executar(scanner);
+                        break;
+                    case 2:
+                        Login.executar(scanner);
+                        break;
+                    case 3:
+                        Operacoes.consultarClientesEContas();
+                        break;
+                    case 4:
+                        executando = false;
+                        System.out.println("Encerrando o sistema...");
+                        break;
+                    default:
+                        System.out.println("Opção inválida.");
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Entrada inválida. Por favor, digite apenas números.");
+                scanner.nextLine(); 
+            } catch (Exception e) {
+                System.out.println("Erro inesperado: " + e.getMessage());
             }
         }
 
