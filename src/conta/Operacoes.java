@@ -262,22 +262,25 @@ public class Operacoes {
         try (Connection conn = Conexao.conectar();
              PreparedStatement stmt = conn.prepareStatement(sql);
              ResultSet rs = stmt.executeQuery()) {
-        	if(rs.next()) {
-	            while (rs.next()) {
-	                String nome = rs.getString("nome");
-	                String cpf = rs.getString("cpf");
-	                int numeroConta = rs.getInt("id_conta");
-	                String tipoConta = rs.getString("tipo");
-	
-	                System.out.println("Nome: " + nome +
-	                                   ", CPF: " + cpf +
-	                                   ", Conta: " + numeroConta +
-	                                   ", Tipo: " + tipoConta);
-	            }
-        	}else {
-        		System.out.println("Não tem nenhum registro.");
-        	}
+        	
+        	boolean registroEncontrado = false;
+        	
+            while (rs.next()) {
+            	registroEncontrado = true;
+                String nome = rs.getString("nome");
+                String cpf = rs.getString("cpf");
+                int numeroConta = rs.getInt("id_conta");
+                String tipoConta = rs.getString("tipo");
 
+                System.out.println("Nome: " + nome +
+                                   ", CPF: " + cpf +
+                                   ", Conta: " + numeroConta +
+                                   ", Tipo: " + tipoConta);
+            }
+            if (!registroEncontrado) {
+	            System.out.println("Não tem nenhum registro.");
+	        }	
+            
         } catch (SQLException e) {
             System.out.println("Erro ao consultar: " + e.getMessage());
         }
