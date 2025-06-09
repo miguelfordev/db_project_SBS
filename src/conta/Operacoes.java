@@ -182,16 +182,24 @@ public class Operacoes {
         }
     }
     
-    public static void excluirUsuario(int name) {
+    public static void excluirUsuario(int id) {
     	try (Connection conn = Conexao.conectar()){
-			String query = "select remover_usuario (?)";
-			
-    		
-    		
+    		 String call = "{ call remover_usuario(?) }"; 
+
+    	        CallableStatement cs = conn.prepareCall(call);
+    	        cs.setInt(1, id); 
+    	        cs.execute();
+
+    	        System.out.println("Seu usuário foi excluído!");
+			 
     		conn.close();
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
+		} catch (SQLException e) { 
+            System.err.println("Erro ao excluir usuário: " + e.getMessage());
+            e.printStackTrace(); 
+        } catch (Exception e) { 
+            System.err.println("Ocorreu um erro inesperado: " + e.getMessage());
+            e.printStackTrace();
+        }
     }
     
 
